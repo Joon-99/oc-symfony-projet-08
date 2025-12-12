@@ -16,6 +16,13 @@ class VoitureRepository extends ServiceEntityRepository
         parent::__construct($registry, Voiture::class);
     }
 
+    public function findAll(): array
+    {
+        return $this->createQueryBuilder('v')
+            ->getQuery()
+            ->getResult();
+    }
+
     //    /**
     //     * @return Voiture[] Returns an array of Voiture objects
     //     */

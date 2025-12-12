@@ -7,6 +7,7 @@ use App\Repository\VoitureRepository;
 use Doctrine\DBAL\Types\Types;
 use Doctrine\ORM\Mapping as ORM;
 use Symfony\Component\Validator\Constraints as Assert;
+use Decimal\Decimal;
 
 #[ORM\Entity(repositoryClass: VoitureRepository::class)]
 class Voiture
@@ -22,15 +23,15 @@ class Voiture
     #[ORM\Column(type: Types::TEXT, nullable: true)]
     private ?string $description = null;
 
-    #[ORM\Column(type: Types::DECIMAL, precision: 10, scale: 2, nullable: true)]
-    #[Assert\Type('numeric')]
+    #[ORM\Column(type: 'decimal_object', precision: 10, scale: 2, nullable: true)]
+    #[Assert\Type(Decimal::class)]
     #[Assert\PositiveOrZero()]
-    private ?string $monthlyPrice = null;
+    private ?Decimal $monthlyPrice = null;
 
-    #[ORM\Column(type: Types::DECIMAL, precision: 10, scale: 2, nullable: true)]
-    #[Assert\Type('numeric')]
+    #[ORM\Column(type: 'decimal_object', precision: 10, scale: 2, nullable: true)]
+    #[Assert\Type(Decimal::class)]
     #[Assert\PositiveOrZero()]
-    private ?string $dailyPrice = null;
+    private ?Decimal $dailyPrice = null;
 
     #[ORM\Column]
     #[Assert\Range(min: 1, max: 9)]
@@ -70,24 +71,24 @@ class Voiture
         return $this;
     }
 
-    public function getMonthlyPrice(): ?string
+    public function getMonthlyPrice(): ?Decimal
     {
         return $this->monthlyPrice;
     }
 
-    public function setMonthlyPrice(?string $monthlyPrice): static
+    public function setMonthlyPrice(?Decimal $monthlyPrice): static
     {
         $this->monthlyPrice = $monthlyPrice;
 
         return $this;
     }
 
-    public function getDailyPrice(): ?string
+    public function getDailyPrice(): ?Decimal
     {
         return $this->dailyPrice;
     }
 
-    public function setDailyPrice(?string $dailyPrice): static
+    public function setDailyPrice(?Decimal $dailyPrice): static
     {
         $this->dailyPrice = $dailyPrice;
 
