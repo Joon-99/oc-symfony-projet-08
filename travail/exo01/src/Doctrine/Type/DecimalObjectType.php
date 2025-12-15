@@ -28,11 +28,11 @@ class DecimalObjectType extends Type
         }
 
         if (!($value instanceof Decimal)) {
-            throw ConversionException::conversionFailedInvalidType(
-                $value,
-                $this->getName(),
-                ['null', Decimal::class]
-            );
+            throw new ConversionException(sprintf(
+                'Expected instance of %s or null, got %s',
+                Decimal::class,
+                is_object($value) ? get_class($value) : gettype($value)
+            ));
         }
 
         return $value->toString();
@@ -47,7 +47,11 @@ class DecimalObjectType extends Type
         try {
             return new Decimal((string) $value);
         } catch (\Throwable $e) {
-            throw ConversionException::conversionFailedFormat((string) $value, $this->getName(), ['decimal']);
+            throw new ConversionException(sprintf(
+                'Could not convert database value "%s" to %s',
+                (string) $value,
+                $this->getName()
+            ));
         }
     }
 
