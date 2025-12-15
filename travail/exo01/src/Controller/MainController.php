@@ -3,6 +3,7 @@
 namespace App\Controller;
 
 use App\Repository\VoitureRepository;
+use App\Entity\Voiture;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Attribute\Route;
@@ -35,11 +36,17 @@ final class MainController extends AbstractController
         ]);
     }
 
-    #[Route('/car/{carId}', name: 'app_car', requirements: ['carId' => '\d+'], methods: ['GET'])]
-    public function car(Voiture $car): Response
+    #[Route('/car/{car}', name: 'app_car', requirements: ['car' => '\d+'], methods: ['GET'])]
+    public function car(?Voiture $car): Response
     {
+        if (!$car) {
+            return $this->render('error.html.twig', [
+                'errorMsg' => 'La voiture demandée n\'existe pas.',
+            ]);
+        }
         return $this->render('main/car.html.twig', [
             'controller_name' => 'MainController',
+            'car' => $car,
             'big_header' => false,
         ]);
     }

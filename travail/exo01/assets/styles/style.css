@@ -295,6 +295,16 @@ footer h2 {
     margin-right: auto;
 }
 
+section#error {
+    width: 650px;
+    max-width: 100%;
+    background: #ffb4b4;
+    border-radius: 20px;
+    margin: 75px auto;
+    border: 1px solid #E7E7E7;
+    padding: 50px 80px;
+    text-align: center;
+}
 
 /** ADD CAR **/
 section#add, section#car {

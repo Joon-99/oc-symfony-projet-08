@@ -1,0 +1,14 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Erreur{% endblock %}
+
+{% block header %} {{ parent() }} {% endblock %}
+{% block main %}
+    <section id="error">
+        <div class="error-card alert alert-danger">
+            <p>{{ errorMsg }}</p>
+            <a href="{{ path('app_main') }}" class="btn-home">Retour à l'accueil</a>
+        </div>
+    </section>
+{% endblock main %}
+{% block footer %} {{ parent() }} {% endblock %}
