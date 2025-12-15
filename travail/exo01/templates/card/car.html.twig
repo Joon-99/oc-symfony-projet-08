@@ -5,7 +5,7 @@
             <p>ou similaire | Saint-Étienne</p>
         </a>
         <div>
-            <a href="#"><img src="{{ asset('icons/trash.png') }}" alt="Supprimer" /></a>
+            <a href="{{ path('app_delete_car', {'car': car.id}) }}"><img src="{{ asset('icons/trash.png') }}" alt="Supprimer" /></a>
         </div>
     </div>
     <div class="mini-car-icons">

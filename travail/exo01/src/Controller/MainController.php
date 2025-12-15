@@ -66,4 +66,25 @@ final class MainController extends AbstractController
             'big_header' => false,
         ]);
     }
+
+    #[Route('/car/delete/{car}', name: 'app_delete_car', requirements: ['car' => '\d+'], methods: ['GET'])]
+    public function deleteCar(?Voiture $car, EntityManagerInterface $entityManager): Response
+    {
+        if (!$car) {
+            return $this->render('error.html.twig', [
+                'errorMsg' => "La voiture demandée n'existe pas.",
+            ]);
+        }
+
+        try {
+            $entityManager->remove($car);
+            $entityManager->flush();
+        } catch (Exception $e) {
+            return $this->render('error.html.twig', [
+                'errorMsg' => "Une erreur est survenue lors de la suppression de la voiture : {$e->getMessage()}",
+            ]);
+        }
+
+        return $this->redirectToRoute('app_main');
+    }
 }
