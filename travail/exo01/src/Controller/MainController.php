@@ -2,12 +2,16 @@
 
 namespace App\Controller;
 
-use App\Repository\VoitureRepository;
+use Exception;
 use App\Entity\Voiture;
-use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
+use App\Form\VoitureType;
+use App\Repository\VoitureRepository;
+use Doctrine\ORM\EntityManagerInterface;
+use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Attribute\Route;
 use Symfony\Contracts\Service\Attribute\Required;
+use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 
 final class MainController extends AbstractController
 {
@@ -21,17 +25,30 @@ final class MainController extends AbstractController
         $voitures = $this->voitureRepository->findAll();
 
         return $this->render('main/index.html.twig', [
-            'controller_name' => 'MainController',
             'voitures' => $voitures,
             'big_header' => true,
         ]);
     }
 
     #[Route('/add', name: 'app_add')]
-    public function add(): Response
+    public function add(EntityManagerInterface $entityManager, Request $request): Response
     {
+        $newCar = new Voiture();
+        $form = $this->createForm(VoitureType::class, $newCar);
+        $form->handleRequest($request);
+        if ($form->isSubmitted() && $form->isValid()) {
+            try {
+                $entityManager->persist($newCar);
+                $entityManager->flush();
+            } catch (Exception $e) {
+                return $this->render('error.html.twig', [
+                    'errorMsg' => "Une erreur est survenue lors de l'ajout de la voiture : {$e->getMessage()}",
+                ]);
+            }
+            return $this->redirectToRoute('app_main');
+        }
         return $this->render('main/add.html.twig', [
-            'controller_name' => 'MainController',
+            'form' => $form,
             'big_header' => false,
         ]);
     }
@@ -45,7 +62,6 @@ final class MainController extends AbstractController
             ]);
         }
         return $this->render('main/car.html.twig', [
-            'controller_name' => 'MainController',
             'car' => $car,
             'big_header' => false,
         ]);

@@ -4,7 +4,7 @@
         "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#installing-dependencies",
         "This file is @generated automatically"
     ],
-    "content-hash": "4d8cd7930ad2a257566c70f43ec8bef2",
+    "content-hash": "bc8e090b5c234945cdc43c0ca31188df",
     "packages": [
         {
             "name": "composer/semver",
@@ -8000,6 +8000,52 @@
                 "source": "https://github.com/phar-io/version/tree/3.2.1"
             },
             "time": "2022-02-21T01:04:05+00:00"
+        },
+        {
+            "name": "php-decimal/stubs",
+            "version": "v1.1.0",
+            "source": {
+                "type": "git",
+                "url": "https://github.com/php-decimal/stubs.git",
+                "reference": "168bb0d58bb398d7da739da0da99df2a9e1fc773"
+            },
+            "dist": {
+                "type": "zip",
+                "url": "https://api.github.com/repos/php-decimal/stubs/zipball/168bb0d58bb398d7da739da0da99df2a9e1fc773",
+                "reference": "168bb0d58bb398d7da739da0da99df2a9e1fc773",
+                "shasum": ""
+            },
+            "require": {
+                "php": ">=7.0.0"
+            },
+            "type": "library",
+            "autoload": {
+                "psr-4": {
+                    "Decimal\\": ""
+                }
+            },
+            "notification-url": "https://packagist.org/downloads/",
+            "license": [
+                "MIT"
+            ],
+            "authors": [
+                {
+                    "name": "Rudi Theunissen",
+                    "email": "rtheunissen@php.net"
+                }
+            ],
+            "description": "IDE and static analysis helper for the decimal extension",
+            "keywords": [
+                "decimal",
+                "math",
+                "number",
+                "precision"
+            ],
+            "support": {
+                "issues": "https://github.com/php-decimal/stubs/issues",
+                "source": "https://github.com/php-decimal/stubs/tree/v1.1.0"
+            },
+            "time": "2018-11-20T20:48:40+00:00"
         },
         {
             "name": "phpunit/php-code-coverage",

@@ -1,35 +1,39 @@
 {% extends 'base.html.twig' %}
 
-{% block title %}Hello MainController!{% endblock %}
+{% block title %}Ajouter une voiture{% endblock %}
 
 {% block header %} {{ parent() }} {% endblock header %}
 
 {% block main %}
-<style>
-    .example-wrapper { margin: 1em auto; max-width: 800px; width: 95%; font: 18px/1.5 sans-serif; }
-    .example-wrapper code { background: #F5F5F5; padding: 2px 6px; }
-</style>
 
-<div class="example-wrapper">
-    <h1>Hello {{ controller_name }}! ✅</h1>
-
-    Les voitures :
-
-    {% for voiture in voitures %}
-        <div>
-            <h2>{{ voiture.name }}</h2>
-            <p>{{ voiture.description }}</p>
-            <p>Prix journalier : {{ voiture.dailyPrice ?? '' }}</p>
-            <p>Prix mensuel : {{ voiture.monthlyPrice ?? '' }}</p>
-            <p>Moteur : {{ voiture.motor ? voiture.motor.value ?? '' }}</p>
+<section id="add">
+    <a href="{{ path('app_main') }}">← Retour</a>
+    <h1>Ajouter une voiture</h1>
+    {{ form_start(form) }}
+    <div class="input">
+        {{ form_row(form.name) }}
+    </div>
+    <div class="input">
+        {{ form_row(form.description) }}
+    </div>
+    <div class="flex-input">
+        <div class="input">
+            {{ form_row(form.monthlyPrice) }}
         </div>
-    {% endfor %}
-
-    This friendly message is coming from:
-    <ul>
-        <li>Your controller at <code>/home/joon/workspace/projects/github/OC/oc-symfony-projet-08/travail/exo01/src/Controller/MainController.php</code></li>
-        <li>Your template at <code>/home/joon/workspace/projects/github/OC/oc-symfony-projet-08/travail/exo01/templates/main/index.html.twig</code></li>
-    </ul>
-</div>
+        <div class="input">
+            {{ form_row(form.dailyPrice) }}
+        </div>
+    </div>
+    <div class="flex-input">
+        <div class="input">
+            {{ form_row(form.places) }}
+        </div>
+        <div class="input">
+            {{ form_row(form.motor) }}
+        </div>
+    </div>
+    {{ form_row(form.submit) }}
+    {{ form_end(form) }}
+</section>
 {% endblock main %}
 {% block footer %} {{ parent() }} {% endblock %}
