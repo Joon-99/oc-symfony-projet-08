@@ -1,0 +1,34 @@
+<article>
+    <div class="mini-car-title">
+        <a href="{{ path('app_car', {'carId': car.id}) }}">
+            <h3>{{ car.name }}</h3>
+            <p>ou similaire | Saint-Étienne</p>
+        </a>
+        <div>
+            <a href="#"><img src="{{ asset('icons/trash.png') }}" alt="Supprimer" /></a>
+        </div>
+    </div>
+    <div class="mini-car-icons">
+        <div>
+
+            <img src="{{ asset('icons/persons.png') }}" alt="4 places" />
+            <p>{{ car.places }} places</p>
+        </div>
+        <div>
+            <img src="{{ asset('icons/motor.png') }}" alt="Manuelle" />
+            <p>{{ car.motor ? car.motor.value : '' }}</p>
+        </div>
+        <div>
+            <img src="{{ asset('icons/km.png') }}" alt="km illimités" />
+            <p>Km illimités</p>
+        </div>
+        <div>
+            <img src="{{ asset('icons/plus.png') }}" alt="PLus" />
+            <p>Plus</p>
+        </div>
+    </div>
+    <div class="mini-car-price">
+        <p class="price-per-day">{{ car.dailyPrice ?? '' }} € / jour</p>
+        <p class="price-per-month">{{ car.monthlyPrice ?? '' }} € / mois</p>
+    </div>
+</article>

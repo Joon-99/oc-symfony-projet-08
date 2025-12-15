@@ -13,8 +13,8 @@
             {% block importmap %}{{ importmap('app') }}{% endblock %}
         {% endblock javascripts %}
     </head>
-    <body>
-        {% block body %}
+    {% block body %}
+        <body>
             {% block header %}
                 {% if big_header is defined and big_header %}
                     {% include 'header/big_header.html.twig' %}
@@ -28,10 +28,9 @@
                 {% endblock main %}
             </main>
 
-            <footer>
-                {% block footer %}
-                {% endblock footer %}   
-            </footer>
-        {% endblock body%}
-    </body>
+            {% block footer %}
+                {% include 'footer/footer.html.twig' %}
+            {% endblock footer %}   
+        </body>
+    {% endblock body %}
 </html>

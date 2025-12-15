@@ -13,7 +13,7 @@ final class MainController extends AbstractController
     #[Required]
     public VoitureRepository $voitureRepository;
 
-    #[Route('/main', name: 'app_main')]
+    #[Route('/', name: 'app_main')]
     public function index(): Response
     {
         
@@ -23,6 +23,24 @@ final class MainController extends AbstractController
             'controller_name' => 'MainController',
             'voitures' => $voitures,
             'big_header' => true,
+        ]);
+    }
+
+    #[Route('/add', name: 'app_add')]
+    public function add(): Response
+    {
+        return $this->render('main/add.html.twig', [
+            'controller_name' => 'MainController',
+            'big_header' => false,
+        ]);
+    }
+
+    #[Route('/car/{carId}', name: 'app_car', requirements: ['carId' => '\d+'], methods: ['GET'])]
+    public function car(Voiture $car): Response
+    {
+        return $this->render('main/car.html.twig', [
+            'controller_name' => 'MainController',
+            'big_header' => false,
         ]);
     }
 }

@@ -1,35 +1,41 @@
 {% extends 'base.html.twig' %}
 
-{% block title %}Hello MainController!{% endblock %}
+{% block title %}Véhicloc{% endblock %}
 
 {% block header %} {{ parent() }} {% endblock header %}
 
 {% block main %}
-<style>
-    .example-wrapper { margin: 1em auto; max-width: 800px; width: 95%; font: 18px/1.5 sans-serif; }
-    .example-wrapper code { background: #F5F5F5; padding: 2px 6px; }
-</style>
+<section id="fleet">
+    <h2>Découvrez la flotte de véhicules chez Véhicloc</h2>
+    <p>Que vous ayez besoin d'une petite citadine agile, d'une berline élégante ou même d'un SUV spacieux, nous avons une variété de véhicules  pour répondre à vos exigences.</p>
 
-<div class="example-wrapper">
-    <h1>Hello {{ controller_name }}! ✅</h1>
-
-    Les voitures :
-
-    {% for voiture in voitures %}
-        <div>
-            <h2>{{ voiture.name }}</h2>
-            <p>{{ voiture.description }}</p>
-            <p>Prix journalier : {{ voiture.dailyPrice ?? '' }}</p>
-            <p>Prix mensuel : {{ voiture.monthlyPrice ?? '' }}</p>
-            <p>Moteur : {{ voiture.motor ? voiture.motor.value ?? '' }}</p>
+    <div class="fleet-list">
+        {% for voiture in voitures %}
+            {% include 'card/car.html.twig' with {'car': voiture} %}
+        {% endfor %}
+    </div>
+</section>
+<section id="promises">
+    <div>
+        <h2>La promesse Véhicloc</h2>
+        <div class="promise">
+            <img src="{{ asset('icons/insurance.png') }}" alt="Assurance et Assistance">
+            <div class="promise-text">
+                <h3>Assurance et Assistance</h3>
+                <p>Votre tranquillité d'esprit est notre priorité. Toutes nos locations mensuelles incluent une assurance complète et une assistance routière, pour garantir une conduite en toute sécurité.</p>
+            </div>
         </div>
-    {% endfor %}
-
-    This friendly message is coming from:
-    <ul>
-        <li>Your controller at <code>/home/joon/workspace/projects/github/OC/oc-symfony-projet-08/travail/exo01/src/Controller/MainController.php</code></li>
-        <li>Your template at <code>/home/joon/workspace/projects/github/OC/oc-symfony-projet-08/travail/exo01/templates/main/index.html.twig</code></li>
-    </ul>
-</div>
+        <div class="promise">
+            <img src="{{ asset('icons/booking.png') }}" alt="Réservation facile">
+            <div class="promise-text">
+                <h3>Réservation facile</h3>
+                <p>Notre plateforme vous permet de réserver votre voiture en quelques clics. Sélectionnez vos dates, choisissez le modèle qui vous convient et finalisez votre réservation en un rien de temps.</p>
+            </div>
+        </div>
+    </div>
+    <div>
+        <img src="{{ asset('img/promise.png') }}" alt="La promesse Véhicloc">
+    </div>
+</section>
 {% endblock main %}
 {% block footer %} {{ parent() }} {% endblock %}
