@@ -21,13 +21,15 @@ class ProjectType extends AbstractType
             ->add('isArchived')
             ->add('users', EntityType::class, [
                 'class' => User::class,
-                'choice_label' => 'id',
+                'choice_label' => fn(User $user) => $user,
                 'multiple' => true,
+                'by_reference' => false,
             ])
             ->add('tags', EntityType::class, [
                 'class' => Tag::class,
-                'choice_label' => 'id',
+                'choice_label' => 'label',
                 'multiple' => true,
+                'by_reference' => false,
             ])
         ;
     }
