@@ -254,4 +254,12 @@ class User
     {
         return $this->firstName . ' ' . $this->lastName;
     }
+
+    public function getInitials(): string
+    {
+        $first = $this->firstName ? mb_substr($this->firstName, 0, 1) : '';
+        $last = $this->lastName ? mb_substr($this->lastName, 0, 1) : '';
+
+        return mb_strtoupper($first . $last);
+    }
 }

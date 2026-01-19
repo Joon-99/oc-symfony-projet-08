@@ -3,7 +3,7 @@
 {% block title %}Liste des Projets{% endblock %}
 
 {% block nav %}
-    {% include 'nav.html.twig' %}
+    {% include 'nav.html.twig' with {'activeRoute': 'app_project_index'} %}
 {% endblock %}
 
 {% block header_title %}Projets{% endblock %}

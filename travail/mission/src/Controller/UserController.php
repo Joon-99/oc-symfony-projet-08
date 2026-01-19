@@ -18,7 +18,7 @@ final class UserController extends AbstractController
     public function index(UserRepository $userRepository): Response
     {
         return $this->render('user/employees.html.twig', [
-            'users' => $userRepository->findAll(),
+            'employees' => $userRepository->findBy([], ['lastName' => 'ASC']),
         ]);
     }
 
@@ -68,12 +68,29 @@ final class UserController extends AbstractController
         ]);
     }
 
-    #[Route('/{id}', name: 'app_user_delete', methods: ['POST'])]
+    #[Route('/{id}/delete', name: 'app_user_delete', methods: ['POST'])]
     public function delete(Request $request, User $user, EntityManagerInterface $entityManager): Response
     {
-        if ($this->isCsrfTokenValid('delete'.$user->getId(), $request->getPayload()->getString('_token'))) {
-            $entityManager->remove($user);
-            $entityManager->flush();
+        $token = $request->request->get('_token');
+
+        if ($this->isCsrfTokenValid('delete'.$user->getId(), $token)) {
+            try {
+                foreach ($user->getProjects() as $project) {
+                    $user->removeProject($project);
+                }
+                foreach ($user->getTasks() as $task) {
+                    $user->removeTask($task);
+                }
+                foreach ($user->getTimeSlots() as $timeSlot) {
+                    $user->removeTimeSlot($timeSlot);
+                }
+
+                $entityManager->remove($user);
+                $entityManager->flush();
+                $this->addFlash('success', 'Employé supprimé avec succès.');
+            } catch (\Exception $e) {
+                $this->addFlash('error', "Erreur pendant la suppression de cet employé : {$e->getMessage()}");
+            }
         }
 
         return $this->redirectToRoute('app_user_index', [], Response::HTTP_SEE_OTHER);

@@ -5,7 +5,7 @@
 {% block header_title %} {{ project is null ? 'Nouveau Projet' : 'Nom du projet' }} {% endblock %}
 
 {% block nav %}
-    {% include 'nav.html.twig' %}
+    {% include 'nav.html.twig' with {'activeRoute': 'app_project_index'} %}
 {% endblock %}
 
 {% block content %}

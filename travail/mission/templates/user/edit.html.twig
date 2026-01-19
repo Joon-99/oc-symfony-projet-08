@@ -1,9 +1,15 @@
 {% extends 'base.html.twig' %}
 
-{% block title %}Edit User{% endblock %}
+{% block title %}{{ user }}{% endblock %}
 
-{% block body %}
-    <h1>Edit User</h1>
+{% block nav %}
+    {% include 'nav.html.twig' with {'activeRoute': 'app_user_index'}%}
+{% endblock %}
+
+{% block header_title %}{{ user }}{% endblock %}
+
+{% block content %}
+    <h1>{{ user }}</h1>
 
     {{ include('user/_form.html.twig', {'button_label': 'Update'}) }}
 
