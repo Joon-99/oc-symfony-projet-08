@@ -2,6 +2,7 @@
 
 namespace App\Entity;
 
+use App\Enum\TaskCategoryEnum;
 use App\Repository\TaskRepository;
 use Doctrine\Common\Collections\ArrayCollection;
 use Doctrine\Common\Collections\Collection;
@@ -46,6 +47,9 @@ class Task
      */
     #[ORM\ManyToMany(targetEntity: User::class, mappedBy: 'tasks')]
     private Collection $users;
+
+    #[ORM\Column(enumType: TaskCategoryEnum::class)]
+    private ?TaskCategoryEnum $category = TaskCategoryEnum::TODO;
 
     public function __construct()
     {
@@ -187,6 +191,18 @@ class Task
         if ($this->users->removeElement($user)) {
             $user->removeTask($this);
         }
+
+        return $this;
+    }
+
+    public function getCategory(): ?TaskCategoryEnum
+    {
+        return $this->category;
+    }
+
+    public function setCategory(TaskCategoryEnum $category): static
+    {
+        $this->category = $category;
 
         return $this;
     }
