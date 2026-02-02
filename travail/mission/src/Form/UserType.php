@@ -38,9 +38,6 @@ class UserType extends AbstractType
                 'choices' => array_combine(ContractEnum::values(), ContractEnum::values()),
                 'placeholder' => 'Choose a contract',
             ])
-            // ->add('isActive')
-            // ->add('role')
-            // ->add('password')
         ;
 
         // convert between submitted string and ContractEnum instance

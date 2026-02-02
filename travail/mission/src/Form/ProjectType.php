@@ -19,8 +19,6 @@ class ProjectType extends AbstractType
             ->add('title', TextType::class, [
                 'label' => 'Titre du projet',
             ])
-            // ->add('startDate')
-            // ->add('deadline')
             ->add('users', EntityType::class, [
                 'label' => 'Inviter des membres',
                 'class' => User::class,
@@ -28,12 +26,6 @@ class ProjectType extends AbstractType
                 'multiple' => true,
                 'by_reference' => false,
             ])
-            // ->add('tags', EntityType::class, [
-            //     'class' => Tag::class,
-            //     'choice_label' => 'label',
-            //     'multiple' => true,
-            //     'by_reference' => false,
-            // ])
         ;
     }
 
