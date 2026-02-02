@@ -12,6 +12,7 @@ use Symfony\Component\Form\FormBuilderInterface;
 use Symfony\Component\Form\Extension\Core\Type\ChoiceType;
 use Symfony\Component\Form\Extension\Core\Type\EmailType;
 use Symfony\Component\OptionsResolver\OptionsResolver;
+use Symfony\Component\Validator\Constraints\Email;
 
 class UserType extends AbstractType
 {
@@ -26,6 +27,9 @@ class UserType extends AbstractType
             ])
             ->add('email', EmailType::class, [
                 'label' => 'Email',
+                'constraints' => [
+                    new Email(),
+                ],
             ])
             ->add('hiredOn', DateType::class, [
                 'label' => "Date d'entrée",

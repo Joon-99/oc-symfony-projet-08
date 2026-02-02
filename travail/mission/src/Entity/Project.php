@@ -8,9 +8,14 @@ use Doctrine\Common\Collections\Collection;
 use Doctrine\DBAL\Types\Types;
 use Doctrine\ORM\Mapping as ORM;
 
+use Gedmo\Mapping\Annotation as Gedmo;
+use Gedmo\SoftDeleteable\Traits\SoftDeleteableEntity;
+
+#[Gedmo\SoftDeleteable(fieldName: "deletedAt")]
 #[ORM\Entity(repositoryClass: ProjectRepository::class)]
 class Project
 {
+    use SoftDeleteableEntity;
     #[ORM\Id]
     #[ORM\GeneratedValue]
     #[ORM\Column]
@@ -24,9 +29,6 @@ class Project
 
     #[ORM\Column(type: Types::DATE_MUTABLE, nullable: true)]
     private ?\DateTime $deadline = null;
-
-    #[ORM\Column]
-    private bool $isArchived = false;
 
     /**
      * @var Collection<int, Task>
@@ -90,18 +92,6 @@ class Project
     public function setDeadline(?\DateTime $deadline): static
     {
         $this->deadline = $deadline;
-
-        return $this;
-    }
-
-    public function isArchived(): bool
-    {
-        return $this->isArchived;
-    }
-
-    public function setIsArchived(bool $isArchived): static
-    {
-        $this->isArchived = $isArchived;
 
         return $this;
     }
