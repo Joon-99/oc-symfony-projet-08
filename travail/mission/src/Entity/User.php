@@ -20,28 +20,39 @@ class User
     private ?int $id = null;
 
     #[ORM\Column(length: 255)]
+    #[Assert\Length(max: 255)]
+    #[Assert\NotBlank]
     private ?string $firstName = null;
 
     #[ORM\Column(length: 255)]
+    #[Assert\Length(max: 255)]
+    #[Assert\NotBlank]
     private ?string $lastName = null;
 
     #[ORM\Column(length: 255, unique: true)]
+    #[Assert\Length(max: 255)]
+    #[Assert\NotBlank]
+    #[Assert\Email]
     private ?string $email = null;
 
     #[ORM\Column]
     private bool $isActive = true;
 
     #[ORM\Column(length: 255)]
+    #[Assert\Length(max: 255)]
     private ?string $role = null;
 
     #[ORM\Column]
     private ?DateTime $hiredOn = null;
 
     #[ORM\Column(length: 255)]
+    #[Assert\Length(max: 255)]
+    #[Assert\NotBlank]
     private ?string $password = null;
 
 
     #[ORM\Column(length: 255)]
+    #[Assert\Length(max: 255)]
     #[Assert\NotBlank]
     #[Assert\Choice(callback: 'App\\Enum\\ContractEnum::values')]
     private ?string $status = null;

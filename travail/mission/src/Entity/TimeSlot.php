@@ -5,6 +5,8 @@ namespace App\Entity;
 use App\Repository\TimeSlotRepository;
 use Doctrine\DBAL\Types\Types;
 use Doctrine\ORM\Mapping as ORM;
+use Symfony\Component\Validator\Constraints as Assert;
+use DateTime;
 
 #[ORM\Entity(repositoryClass: TimeSlotRepository::class)]
 class TimeSlot
@@ -23,10 +25,16 @@ class TimeSlot
     private ?Task $task = null;
 
     #[ORM\Column(type: Types::DATE_MUTABLE)]
-    private ?\DateTime $startDate = null;
+    #[Assert\LessThan(
+        propertyPath: "endDate", 
+        message: "La date de début doit être antérieure à la date de fin.")]
+    private ?DateTime $startDate = null;
 
     #[ORM\Column(type: Types::DATE_MUTABLE)]
-    private ?\DateTime $endDate = null;
+    #[Assert\GreaterThan(
+        propertyPath: "startDate", 
+        message: "La date de fin doit être postérieure à la date de début.")]
+    private ?DateTime $endDate = null;
 
     public function getId(): ?int
     {
@@ -57,24 +65,24 @@ class TimeSlot
         return $this;
     }
 
-    public function getStartDate(): ?\DateTime
+    public function getStartDate(): ?DateTime
     {
         return $this->startDate;
     }
 
-    public function setStartDate(\DateTime $startDate): static
+    public function setStartDate(DateTime $startDate): static
     {
         $this->startDate = $startDate;
 
         return $this;
     }
 
-    public function getEndDate(): ?\DateTime
+    public function getEndDate(): ?DateTime
     {
         return $this->endDate;
     }
 
-    public function setEndDate(\DateTime $endDate): static
+    public function setEndDate(DateTime $endDate): static
     {
         $this->endDate = $endDate;
 

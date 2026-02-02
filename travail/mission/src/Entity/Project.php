@@ -7,7 +7,8 @@ use Doctrine\Common\Collections\ArrayCollection;
 use Doctrine\Common\Collections\Collection;
 use Doctrine\DBAL\Types\Types;
 use Doctrine\ORM\Mapping as ORM;
-
+use Symfony\Component\Validator\Constraints as Assert;
+use Symfony\Component\Validator\Context\ExecutionContextInterface;
 use Gedmo\Mapping\Annotation as Gedmo;
 use Gedmo\SoftDeleteable\Traits\SoftDeleteableEntity;
 
@@ -22,9 +23,14 @@ class Project
     private ?int $id = null;
 
     #[ORM\Column(length: 255)]
+    #[Assert\Length(max: 255)]
+    #[Assert\NotBlank]
     private ?string $title = null;
 
     #[ORM\Column(type: Types::DATE_MUTABLE, nullable: true)]
+    #[Assert\LessThan(
+        propertyPath: "deadline", 
+        message: "La date de début doit être antérieure à la date limite.")]
     private ?\DateTime $startDate = null;
 
     #[ORM\Column(type: Types::DATE_MUTABLE, nullable: true)]

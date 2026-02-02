@@ -27,9 +27,6 @@ class UserType extends AbstractType
             ])
             ->add('email', EmailType::class, [
                 'label' => 'Email',
-                'constraints' => [
-                    new Email(),
-                ],
             ])
             ->add('hiredOn', DateType::class, [
                 'label' => "Date d'entrée",
