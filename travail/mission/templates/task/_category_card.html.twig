@@ -4,7 +4,7 @@
         {% for task in tasks %}
             {% include 'task/_task_card.html.twig' with {'task': task} %}
         {% endfor %}
-        <a href="tache-add.html" class="task-add">
+        <a href="{{ path('app_task_new', {'project': project.id}) }}" data-turbo="false" class="task-add">
         + Ajouter une tâche
         </a>
     </div>
