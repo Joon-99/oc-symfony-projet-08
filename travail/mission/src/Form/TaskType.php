@@ -30,6 +30,7 @@ class TaskType extends AbstractType
                 'choice_label' => fn(User $user) => $user,
                 'multiple' => true,
                 'by_reference' => false,
+                'required' => false,
             ])
         ;
 

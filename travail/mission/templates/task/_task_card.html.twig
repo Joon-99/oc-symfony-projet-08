@@ -2,9 +2,11 @@
     <h3>{{ task.title }}</h3>
     <p>{{ task.description }}</p>
     <div class="task-infos">
-        <div class="task-deadline">
-            <i class="fa-regular fa-calendar"></i> {{ task.deadline|date('d/m/Y') }}
-        </div>
+        {% if task.deadline %}
+            <div class="task-deadline">
+                <i class="fa-regular fa-calendar"></i> {{ task.deadline|date('d/m/Y') }}
+            </div>
+        {% endif %}
         {% for user in task.users %}
             <div class="mini-user">
                 {{ user.initials }}
