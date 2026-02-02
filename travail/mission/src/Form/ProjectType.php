@@ -5,6 +5,7 @@ namespace App\Form;
 use App\Entity\Project;
 use App\Entity\Tag;
 use App\Entity\User;
+use Symfony\Component\Form\Extension\Core\Type\TextType;
 use Symfony\Bridge\Doctrine\Form\Type\EntityType;
 use Symfony\Component\Form\AbstractType;
 use Symfony\Component\Form\FormBuilderInterface;
@@ -15,22 +16,25 @@ class ProjectType extends AbstractType
     public function buildForm(FormBuilderInterface $builder, array $options): void
     {
         $builder
-            ->add('title')
-            ->add('startDate')
-            ->add('deadline')
-            ->add('isArchived')
+            ->add('title', TextType::class, [
+                'label' => 'Titre du projet',
+            ])
+            // ->add('startDate')
+            // ->add('deadline')
+            // ->add('isArchived')
             ->add('users', EntityType::class, [
+                'label' => 'Inviter des membres',
                 'class' => User::class,
                 'choice_label' => fn(User $user) => $user,
                 'multiple' => true,
                 'by_reference' => false,
             ])
-            ->add('tags', EntityType::class, [
-                'class' => Tag::class,
-                'choice_label' => 'label',
-                'multiple' => true,
-                'by_reference' => false,
-            ])
+            // ->add('tags', EntityType::class, [
+            //     'class' => Tag::class,
+            //     'choice_label' => 'label',
+            //     'multiple' => true,
+            //     'by_reference' => false,
+            // ])
         ;
     }
 
