@@ -48,7 +48,6 @@ final class ProjectFactory extends PersistentObjectFactory
         ];
 
         return [
-            'isArchived' => self::faker()->boolean(),
             'title' => self::faker()->randomElement($choices),
         ];
     }

@@ -21,7 +21,6 @@ class ProjectType extends AbstractType
             ])
             // ->add('startDate')
             // ->add('deadline')
-            // ->add('isArchived')
             ->add('users', EntityType::class, [
                 'label' => 'Inviter des membres',
                 'class' => User::class,
