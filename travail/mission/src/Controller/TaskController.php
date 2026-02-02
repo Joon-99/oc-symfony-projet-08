@@ -38,4 +38,21 @@ class TaskController extends AbstractController
             'form' => $form->createView(),
         ]);
     }
+
+    #[Route('/{id}/delete', name: 'app_task_delete', methods: ['POST'])]
+    public function delete(Request $request, Task $task, EntityManagerInterface $entityManager): Response
+    {
+        if ($this->isCsrfTokenValid('delete'.$task->getId(), $request->request->get('_token'))) {
+            try {
+                $entityManager->remove($task);
+                $entityManager->flush();
+
+                $this->addFlash('success', 'Tâche supprimée.');
+            } catch (\Exception $e) {
+                $this->addFlash('error', 'Erreur pendant la suppression de la tâche : ' . $e->getMessage());
+            }
+        }
+
+        return $this->redirectToRoute('app_project_show', ['id' => $task->getProject()->getId()], Response::HTTP_SEE_OTHER);
+    }
 }

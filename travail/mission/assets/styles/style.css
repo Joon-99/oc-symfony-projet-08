@@ -339,6 +339,11 @@ a.task-add {
     display: block;
     margin-left: 18px;
 }
+.form-actions {
+    width: 320px; /* match form width */
+    margin-top: 24px; /* match form spacing */
+    text-align: center;
+}
 
 table#team-container {
     width: 100%;
