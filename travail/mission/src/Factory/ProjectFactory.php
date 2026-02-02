@@ -33,9 +33,23 @@ final class ProjectFactory extends PersistentObjectFactory
     #[\Override]
     protected function defaults(): array|callable
     {
+        // Keep a smaller pool of project names so multiple tasks can be associated
+        $choices = [
+            'Website Redesign',
+            'Mobile App',
+            'E‑commerce Platform',
+            'Marketing Automation',
+            'Internal Dashboard',
+            'Customer Portal',
+            'API Development',
+            'Data Migration',
+            'Analytics Platform',
+            'CMS Integration',
+        ];
+
         return [
             'isArchived' => self::faker()->boolean(),
-            'title' => self::faker()->text(50),
+            'title' => self::faker()->randomElement($choices),
         ];
     }
 

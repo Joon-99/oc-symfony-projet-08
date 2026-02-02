@@ -11,5 +11,9 @@
             "database": "app",
             "username": "app"
         }
+    ],
+    "intelephense.files.maxSize": 2000000,
+    "intelephense.environment.includePaths": [
+        "./templates"
     ]
 }

@@ -4,6 +4,7 @@ namespace App\Factory;
 
 use App\Entity\Task;
 use Zenstruck\Foundry\Persistence\PersistentObjectFactory;
+use App\Enum\TaskCategoryEnum;
 
 /**
  * @extends PersistentObjectFactory<Task>
@@ -33,9 +34,33 @@ final class TaskFactory extends PersistentObjectFactory
     #[\Override]
     protected function defaults(): array|callable
     {
+                $choices = [
+                    'Design UI',
+                    'Implement authentication',
+                    'Create database schema',
+                    'Integrate payment gateway',
+                    'Write unit tests',
+                    'Set up CI/CD',
+                    'Migrate legacy data',
+                    'Optimize performance',
+                    'Add logging and monitoring',
+                    'Implement search',
+                    'Create admin panel',
+                    'Deploy to staging',
+                    'Document API endpoints',
+                    'Fix critical bugs',
+                    'Add localization',
+                    'Implement notifications',
+                    'Write end-to-end tests',
+                    'Refactor module',
+                    'Integrate analytics',
+                    'Finalize UX flows',
+                ];
+
         return [
-            'project' => ProjectFactory::new(),
-            'title' => self::faker()->text(255),
+            'project' => null,
+            'title' => self::faker()->randomElement($choices),
+            'category' => self::faker()->randomElement(TaskCategoryEnum::cases()),
         ];
     }
 

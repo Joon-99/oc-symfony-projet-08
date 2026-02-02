@@ -27,7 +27,9 @@
             <header>
                 <div id="current-user"></div>
                 <div id="title-page">
-                    <h1>{% block header_title %}{% endblock %}</h1>
+                    {% block header %}
+                        <h1>{% block header_title %}{% endblock %}</h1>
+                    {% endblock %}
                 </div>
             </header>
             <div id="content">

@@ -3,6 +3,7 @@
 namespace App\Controller;
 
 use App\Entity\Project;
+use App\Enum\TaskCategoryEnum;
 use App\Form\ProjectType;
 use App\Repository\ProjectRepository;
 use Doctrine\ORM\EntityManagerInterface;
@@ -10,6 +11,7 @@ use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Attribute\Route;
+use App\Repository\TaskRepository;
 
 #[Route('/project')]
 final class ProjectController extends AbstractController
@@ -23,10 +25,19 @@ final class ProjectController extends AbstractController
     }
 
     #[Route('/{id}/show', name: 'app_project_show', methods: ['GET'])]
-    public function show(Project $project): Response
+    public function show(Project $project, TaskRepository $taskRepository): Response
     {
+        $categories = [];
+        foreach (TaskCategoryEnum::cases() as $categoryName) {
+            $tasksInCategory = $taskRepository->findAllByCategoryProject($categoryName->value, $project);
+            $categories[] = [
+                'name' => $categoryName->value,
+                'tasks' => $tasksInCategory
+            ];
+        }
         return $this->render('project/show.html.twig', [
             'project' => $project,
+            'categories' => $categories,
         ]);
     }
 
@@ -58,16 +69,6 @@ final class ProjectController extends AbstractController
     {
         if ($this->isCsrfTokenValid('delete'.$project->getId(), $request->request->get('_token'))) {
             try {
-                foreach ($project->getUsers()->toArray() as $user) {
-                    $project->removeUser($user);
-                }
-                foreach ($project->getTags()->toArray() as $tag) {
-                    $project->removeTag($tag);
-                }
-                foreach ($project->getTasks()->toArray() as $task) {
-                    $project->removeTask($task);
-                }
-
                 $entityManager->remove($project);
                 $entityManager->flush();
 
