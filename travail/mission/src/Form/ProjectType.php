@@ -3,7 +3,6 @@
 namespace App\Form;
 
 use App\Entity\Project;
-use App\Entity\Tag;
 use App\Entity\User;
 use Symfony\Component\Form\Extension\Core\Type\TextType;
 use Symfony\Bridge\Doctrine\Form\Type\EntityType;
